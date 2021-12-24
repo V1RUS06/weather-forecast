@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, StatusBar, Image} from 'react-native'
 import {Colors} from "../helpers/Colors";
 import {Forecast} from "../components/Forecast";
 import { FC } from "react";
+import {Header} from "../components/Header";
 
 interface Props {
   temp: number
@@ -18,7 +19,8 @@ export const Home:FC<Props> = ({temp, pressure, wind, humidity,description, coun
 
   return (
     <View style={styles.container}>
-      <Forecast temp={temp} wind={wind} pressure={pressure} humidity={humidity} description={description} country={country} icon={icon}/>
+      <Header country={country}/>
+      <Forecast temp={temp} wind={wind} pressure={pressure} humidity={humidity} description={description}  icon={icon}/>
     </View>
   )
 }

@@ -18,7 +18,6 @@ export default function App() {
     })()
   }, [longitude, latitude]);
 
-  // console.log(weather.weather[0].icon,'><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 
   if (loading || !weather) {
     return <Loading />
