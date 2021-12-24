@@ -1,29 +1,38 @@
 import React, {useEffect, useState} from "react";
 import {Home} from "./src/screens/Home";
 import {useLocation} from "./src/hooks/useLocation";
-import {Text} from "react-native";
+import {getWeather} from "./api/weather/weatherApi";
+import {Loading} from "./src/components/Loading";
 
 export default function App() {
   const {longitude, latitude, loading} = useLocation()
   const [weather, setWeather] = useState()
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (longitude && latitude) {
-  //       const weather: IWeather= await getWeatherApi(longitude, latitude)
-  //
-  //       setWeather(weather)
-  //     }
-  //   })()
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      if (longitude && latitude) {
+        const weather = await getWeather(longitude, latitude)
 
-  // if (loading || !weather) {
-  //   return <Text style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>Загрузка данных...</Text>
-  // }
+        setWeather(weather)
+      }
+    })()
+  }, [longitude, latitude]);
+
+  // console.log(weather.weather[0].icon,'><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+
+  if (loading || !weather) {
+    return <Loading />
+  }
   return (
-
-      <Home />
-
+      <Home
+        temp={weather.main.temp}
+        pressure={weather.main.pressure}
+        wind={weather.wind.speed}
+        humidity={weather.main.humidity}
+        description={weather.weather[0].description}
+        country={weather.name}
+        icon={weather.weather[0].icon}
+      />
   );
 }
 
