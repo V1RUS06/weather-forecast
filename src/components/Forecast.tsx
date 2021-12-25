@@ -22,7 +22,6 @@ export const Forecast:FC<Props> = ({temp,pressure, wind, humidity, description, 
                 <Image
                   source={{uri: `http://openweathermap.org/img/wn/${icon}@2x.png`}}
                   style={{width: 100, height: 100, }}
-
                 />
                 <Text style={styles.labelImage}>{description}</Text>
                 <Text style={styles.degree}>{`${Math.floor(temp)}`}<MaterialCommunityIcons name='temperature-celsius' size={34}/></Text>
@@ -48,7 +47,7 @@ export const Forecast:FC<Props> = ({temp,pressure, wind, humidity, description, 
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     labelImage: {
         color: Colors.default,

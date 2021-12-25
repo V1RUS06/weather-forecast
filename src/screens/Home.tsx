@@ -4,6 +4,7 @@ import {Colors} from "../helpers/Colors";
 import {Forecast} from "../components/Forecast";
 import { FC } from "react";
 import {Header} from "../components/Header";
+import {NextDaysTable} from "../components/NextDaysTable";
 
 interface Props {
   temp: number
@@ -20,16 +21,44 @@ export const Home:FC<Props> = ({temp, pressure, wind, humidity,description, coun
   return (
     <View style={styles.container}>
       <Header country={country}/>
-      <Forecast temp={temp} wind={wind} pressure={pressure} humidity={humidity} description={description}  icon={icon}/>
+      <View style={styles.forecastContainer}>
+        <Forecast temp={temp} wind={wind} pressure={pressure} humidity={humidity} description={description}  icon={icon}/>
+        <NextDaysTable />
+
+      </View>
+      <View style={styles.updateContainer}>
+        <Text style={styles.lastUpdate}>Las update SAT 4 JUN 2021 16 : 45</Text>
+      </View>
     </View>
   )
 }
 
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     backgroundColor: Colors.blue,
-    paddingTop: 20,
+    paddingTop: 30,
+  },
+  forecastContainer: {
+    flex: 2,
+    // paddingTop: 30,
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    // backgroundColor: 'yellow'
+
+  },
+  updateContainer: {
+    flex: 1,
+    alignItems: "center",
+    // backgroundColor: 'red',
+    justifyContent: 'flex-end'
+
+  },
+  lastUpdate: {
+    textTransform: "uppercase",
+    color: Colors.default,
+    marginBottom: 50,
   }
 });
 
