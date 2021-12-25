@@ -16,9 +16,6 @@ export const NextDaysTable = () => (
       <ForecastCard />
       <ForecastCard />
     </View>
-
-
-
   </View>
 )
 

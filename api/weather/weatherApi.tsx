@@ -9,3 +9,7 @@ export const getWeather = async (longitude: number, latitude: number) => {
     .then(res => res.data)
 }
 
+export const getWeatherForFewDays = async (longitude: number, latitude: number) => {
+  return await axios.get(`${BASE_URL}onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,current,hourly&appid=${API_KEY}&units=metric`)
+    .then(res => res.data)
+}
