@@ -24,7 +24,7 @@ export const ForecastCard:FC<Props> = ({temp, icon }) => {
         />
       </View>
       <View>
-        <Text style={styles.text}>{Math.floor(temp)}<MaterialCommunityIcons name='temperature-celsius' size={20}/></Text>
+        <Text style={styles.text}>{Math.floor(temp)}<MaterialCommunityIcons name='temperature-celsius' size={18}/></Text>
       </View>
     </TouchableOpacity>
   )
@@ -33,7 +33,6 @@ export const ForecastCard:FC<Props> = ({temp, icon }) => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginRight: 4
   },
   textWeek: {
     fontWeight: "bold",

@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Home} from "./src/screens/Home";
 import {useLocation} from "./src/hooks/useLocation";
-import {getWeather} from "./api/weather/weatherApi";
+import {getWeather, getWeatherForFewDays} from "./api/weather/weatherApi";
 import {Loading} from "./src/components/Loading";
 
 export default function App() {
   const {longitude, latitude, loading} = useLocation()
   const [weather, setWeather] = useState()
+  const [weatherForWeek, setWeatherForWeek] = useState();
+
 
   useEffect(() => {
     (async () => {
@@ -15,7 +17,14 @@ export default function App() {
 
         setWeather(weather)
       }
-    })()
+    })();
+    (async () => {
+      if (longitude && latitude) {
+        const data = await getWeatherForFewDays(longitude, latitude)
+
+        setWeatherForWeek(data.daily)
+      }
+    })();
   }, [longitude, latitude]);
 
 
@@ -31,6 +40,7 @@ export default function App() {
         description={weather.weather[0].description}
         country={weather.name}
         icon={weather.weather[0].icon}
+        weatherForWeek={weatherForWeek}
       />
   );
 }

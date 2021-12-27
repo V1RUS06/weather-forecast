@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Text, View, StyleSheet, FlatList} from "react-native";
 import {Colors} from "../helpers/Colors";
 import {ForecastCard} from "./ForecastCard";
@@ -6,22 +6,10 @@ import {getWeatherForFewDays} from "../../api/weather/weatherApi";
 import {useLocation} from "../hooks/useLocation";
 import {Loading} from "./Loading";
 
-export const NextDaysTable = () => {
-  const [weatherForWeek, setWeatherForWeek] = useState();
-  const {longitude, latitude, loading} = useLocation()
-
-
-  useEffect(() => {
-
-    (async () => {
-      if (longitude && latitude) {
-        const data = await getWeatherForFewDays(longitude, latitude)
-
-        setWeatherForWeek(data.daily)
-      }
-    })()
-  }, [longitude, latitude]);
-
+interface Props {
+  weatherForWeek: []
+}
+export const NextDaysTable:FC<Props> = ({weatherForWeek}) => {
 
   const renderItem = ({item, index}) => {
     if (index > 4) {
@@ -35,6 +23,9 @@ export const NextDaysTable = () => {
       />
     )
   }
+  const renderKey = (item) => {
+    return item.wind_gust
+  }
 
 
   return (
@@ -46,10 +37,12 @@ export const NextDaysTable = () => {
         {!weatherForWeek
           ? <Loading/>
           : <FlatList
-            scrollEnabled={false}
+            // scrollEnabled={false}
             data={weatherForWeek}
             renderItem={renderItem}
             horizontal={true}
+            keyExtractor={renderKey}
+            contentContainerStyle={styles.renderContainer}
           />}
       </View>
     </View>
@@ -73,8 +66,11 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: Colors.default,
     paddingVertical: 5,
-    justifyContent: "space-around"
   },
+  renderContainer: {
+    flexGrow: 1,
+    justifyContent: "space-around",
+  }
 
 
 })

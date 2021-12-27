@@ -14,16 +14,17 @@ interface Props {
   description: string
   country: string
   icon: string
+  weatherForWeek: []
 }
 
-export const Home:FC<Props> = ({temp, pressure, wind, humidity,description, country, icon}) => {
+export const Home:FC<Props> = ({temp, pressure, wind, humidity,description, country, icon, weatherForWeek}) => {
 
   return (
     <View style={styles.container}>
       <Header country={country}/>
       <View style={styles.forecastContainer}>
         <Forecast temp={temp} wind={wind} pressure={pressure} humidity={humidity} description={description}  icon={icon}/>
-        <NextDaysTable />
+        <NextDaysTable weatherForWeek={weatherForWeek}/>
 
       </View>
       <View style={styles.updateContainer}>
