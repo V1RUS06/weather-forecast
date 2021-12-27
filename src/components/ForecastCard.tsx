@@ -1,21 +1,30 @@
-import React from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import {FontAwesome5} from 'react-native-vector-icons'
+import React, {FC} from "react";
+import {View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
+import {FontAwesome5, MaterialCommunityIcons} from 'react-native-vector-icons'
 import {Colors} from "../helpers/Colors";
 
-export const ForecastCard = () => {
+
+interface Props {
+  temp: number
+  icon: string
+  key?: number
+}
+
+export const ForecastCard:FC<Props> = ({temp, icon }) => {
 
   return (
-
-    <TouchableOpacity style={styles.container} activeOpacity={.7}>
+    <TouchableOpacity style={styles.container} activeOpacity={.6}>
       <View>
         <Text style={styles.textWeek}>Sat</Text>
       </View>
       <View style={styles.icon}>
-        <FontAwesome5 name='cloud-sun' color='white' size={36} />
+        <Image
+          source={{uri: `http://openweathermap.org/img/wn/${icon}@2x.png`}}
+          style={{width: 60, height: 60, }}
+        />
       </View>
       <View>
-        <Text style={styles.text}>30 C</Text>
+        <Text style={styles.text}>{Math.floor(temp)}<MaterialCommunityIcons name='temperature-celsius' size={20}/></Text>
       </View>
     </TouchableOpacity>
   )
@@ -24,6 +33,7 @@ export const ForecastCard = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    marginRight: 4
   },
   textWeek: {
     fontWeight: "bold",
@@ -32,6 +42,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.default,
+    fontSize: 16
   },
   icon: {
     paddingVertical: 5
