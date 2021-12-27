@@ -8,14 +8,21 @@ interface Props {
   temp: number
   icon: string
   key?: number
+  day: any
 }
 
-export const ForecastCard:FC<Props> = ({temp, icon }) => {
+export const ForecastCard:FC<Props> = ({temp, icon, day }) => {
+
+  const  getWeekDay = (date: any) => {
+    let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+
+    return days[date.getUTCDay()];
+  }
 
   return (
     <TouchableOpacity style={styles.container} activeOpacity={.6}>
       <View>
-        <Text style={styles.textWeek}>Sat</Text>
+        <Text style={styles.textWeek}>{getWeekDay(new Date(+day * 1000))}</Text>
       </View>
       <View style={styles.icon}>
         <Image

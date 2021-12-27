@@ -20,6 +20,7 @@ export const NextDaysTable:FC<Props> = ({weatherForWeek}) => {
         key={index}
         icon={item.weather[0].icon}
         temp={item.temp.day}
+        day={item.dt}
       />
     )
   }
@@ -37,7 +38,7 @@ export const NextDaysTable:FC<Props> = ({weatherForWeek}) => {
         {!weatherForWeek
           ? <Loading/>
           : <FlatList
-            // scrollEnabled={false}
+            scrollEnabled={false}
             data={weatherForWeek}
             renderItem={renderItem}
             horizontal={true}
